@@ -1,0 +1,44 @@
+# GEODATA INSIGHTS Platform - Nucleo geoespacial (Fase 1)
+# Equivalente: ArcGIS Server + ArcGIS Data Store
+# El Portal (GeoNode) vive en portal/geonode-project con su propio compose
+
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    container_name: geodata_db
+    restart: always
+    env_file: .env
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "${DB_PORT}:5432"
+    volumes:
+      - postgis_data:/var/lib/postgresql/data
+      - ./scripts/db:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  geoserver:
+    image: docker.osgeo.org/geoserver:2.25.3
+    container_name: geodata_geoserver
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      GEOSERVER_ADMIN_USER: ${GEOSERVER_ADMIN_USER}
+      GEOSERVER_ADMIN_PASSWORD: ${GEOSERVER_ADMIN_PASSWORD}
+      SKIP_DEMO_DATA: "true"
+      ENABLE_JSONP: "true"
+    ports:
+      - "${GEOSERVER_PORT}:8080"
+    volumes:
+      - ./geoserver_data:/opt/geoserver_data
+
+volumes:
+  postgis_data:

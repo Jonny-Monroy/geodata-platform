@@ -1,0 +1,8 @@
+# Evitar CRLF en scripts que corren dentro de contenedores Linux
+*.sh       text eol=lf
+*.py       text eol=lf
+*.yml      text eol=lf
+*.yaml     text eol=lf
+celery-cmd text eol=lf
+Dockerfile text eol=lf
+*.env      text eol=lf

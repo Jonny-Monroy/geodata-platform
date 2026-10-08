@@ -1,0 +1,23 @@
+# Secretos
+.env
+*.env.local
+**/.env
+!**/.env.sample
+!**/.env.example
+
+# Volúmenes / datos generados
+geoserver_data/
+postgresql_data/
+backup-restore/
+static-root/
+media-root/
+
+# Python
+__pycache__/
+*.pyc
+
+# SO / editores
+Thumbs.db
+.DS_Store
+.vscode/
+.idea/
