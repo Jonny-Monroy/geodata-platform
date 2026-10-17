@@ -98,7 +98,7 @@ geodata-platform/
 | GeoServer de GeoNode | — | http://localhost:8084/geoserver (vía proxy del portal) |
 | Keycloak (fase 4) | 8086 | http://localhost:8086 |
 
-> Puertos 5432/5433/8080-8083 evitados por conflicto con otros proyectos locales (SIATA, huella, CVAT/traefik). Cambiables en `.env`.
+> Puertos 5432/5433/8080-8083 evitados por conflicto con otros proyectos locales. Cambiables en `.env`.
 
 > **Nota:** GeoNode levanta su propio stack completo (Django + GeoServer + PostGIS interno + Celery + RabbitMQ). Es deliberado: el portal gestiona sus metadatos ahí; los **datos geográficos de negocio** viven en el PostGIS del núcleo y se registran en GeoNode como almacenes remotos.
 
@@ -124,7 +124,7 @@ geodata-platform/
 | Fase | Alcance | Entregable |
 |---|---|---|
 | **1. Núcleo** | PostGIS + GeoServer + persistencia + QGIS conectado | Infraestructura de datos y servicios OGC |
-| **2. Portal** | GeoNode con branding GEODATA INSIGHTS | Portal web operativo (el "ArcGIS Online" propio) |
+| **2. Portal** | GeoNode + MapStore, branding GEODATA INSIGHTS (`scripts/portal/`), harvesting WMS del núcleo ya configurado | Portal web operativo (el "ArcGIS Online" propio) |
 | **3. Servicios modernos** | pygeoapi, Martin, MinIO | APIs REST/tiles tipo Feature Services y VTS |
 | **4. Empresarial** | Keycloak SSO, pgRouting, Nominatim, monitoreo, K8s | Producto vendible con SLA |
 

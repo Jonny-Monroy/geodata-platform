@@ -33,6 +33,16 @@ Acceso: http://localhost:8084 — usuario `admin` / contraseña en `.env` (`ADMI
 
 ## Personalización de marca
 
+**Branding automatizado** (ya aplicado): `../scripts/portal/` contiene el logo y `aplicar_marca.py`; se re-ejecuta tras cualquier reinstalación:
+
+```powershell
+docker cp ../scripts/portal/gdi_logo.svg django4geonode_project:/mnt/volumes/statics/uploaded/img/geodata-insights-logo.svg
+Get-Content ../scripts/portal/aplicar_marca.py | docker exec -i django4geonode_project python manage.py shell
+```
+
+Personalización fina desde la UI: `/admin/geonode_themes/geonodethemecustomization/` (logo, CSS, textos de bienvenida).
+
+
 - Código Python (settings, tema): `src/geonode_project/`
 - Configuración: `.env` (nunca versionar)
 - Logo, colores y nombre del sitio: desde el admin de Django (`/admin/`, sección *Themes*) — recomendado para la marca **GEODATA INSIGHTS** sin tocar código.
